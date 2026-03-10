@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HELP ME</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="eyebrow">Secure access</div>
+
+    <h1 id="logo">Welcome back</h1>
+    <p class="lead">
+      Оберіть, як хочете продовжити: створити новий акаунт або увійти у вже існуючий.
+    </p>
+
+    <div class="actions">
+      <a class="button-link primary" href="/register">Створити акаунт</a>
+      <a class="button-link" href="/login">Увійти</a>
+    </div>
+
+    <div class="meta">
+    <div class="meta-text">
+    © 2026 Durka Production. Усі права не захищені.
+    <span class="easter">🥚</span>
+</div>
+    </div>
+<script>
+
+function activateDurkaMode(){
+
+document.body.classList.add("durka");
+
+const emojis = ["🤡","🔥","🥚","🌀","💀","🐸","🚀"];
+
+setInterval(() => {
+
+const e = document.createElement("div");
+
+e.className = "durka-emoji";
+e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+
+e.style.left = Math.random()*100 + "vw";
+
+document.body.appendChild(e);
+
+setTimeout(()=>{
+e.remove();
+},4000);
+
+},200);
+
+alert("DURKA MODE ACTIVATED");
+
+}
+
+// 5 clicks on title
+let clicks = 0;
+
+document.getElementById("logo").onclick = () => {
+
+clicks++;
+
+if(clicks === 5){
+activateDurkaMode();
+}
+
+};
+
+// konami code
+const code = [
+"ArrowUp","ArrowUp",
+"ArrowDown","ArrowDown",
+"ArrowLeft","ArrowRight",
+"ArrowLeft","ArrowRight",
+"b","a"
+];
+
+let input = [];
+
+window.addEventListener("keydown", e => {
+
+input.push(e.key);
+
+if(input.length > code.length){
+input.shift();
+}
+
+if(JSON.stringify(input) === JSON.stringify(code)){
+activateDurkaMode();
+}
+
+});
+
+document.querySelector(".easter").onclick = () => {
+alert("You found the Easter egg 🥚");
+};
+</script>
+
+
+  </div>
+  <script>
+console.log(`
+██╗  ██╗ █████╗  ██████╗██╗  ██╗
+██║  ██║██╔══██╗██╔════╝██║ ██╔╝
+███████║███████║██║     █████╔╝ 
+██╔══██║██╔══██║██║     ██╔═██╗ 
+██║  ██║██║  ██║╚██████╗██║  ██╗
+╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
+
+👀 If you see this, you're curious.
+Built with Node.js, Express and PostgreSQL.
+
+Durka Production © 2026
+`);
+</script>
+</body>
+</html>

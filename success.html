@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Success</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container success-card">
+    <div class="eyebrow success-badge">Success</div>
+
+    <h1 id="success-title">Done</h1>
+    <p class="lead" id="success-text">
+      Everything completed successfully.
+    </p>
+
+    <div class="actions" id="success-actions">
+      <a class="button-link primary" id="primary-action" href="/">Go next</a>
+      <a class="button-link" href="/">Return home</a>
+    </div>
+
+    <div class="meta">
+      <div class="meta-text" id="meta-text">
+        Your request has been processed successfully.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+
+    const title = params.get("title") || "Success";
+    const text = params.get("text") || "Operation completed successfully.";
+    const action = params.get("action") || "home";
+    const user = params.get("user") || "";
+
+    const titleEl = document.getElementById("success-title");
+    const textEl = document.getElementById("success-text");
+    const primaryActionEl = document.getElementById("primary-action");
+    const metaTextEl = document.getElementById("meta-text");
+
+    titleEl.textContent = title;
+
+    if (user) {
+      textEl.textContent = `${text} Signed in as ${user}.`;
+      metaTextEl.textContent = `Session validated successfully for ${user}.`;
+    } else {
+      textEl.textContent = text;
+    }
+
+    if (action === "login") {
+      primaryActionEl.textContent = "Continue to login";
+      primaryActionEl.href = "/login";
+    } else if (action === "home") {
+      primaryActionEl.textContent = "Go to home";
+      primaryActionEl.href = "/";
+    } else {
+      primaryActionEl.textContent = "Continue";
+      primaryActionEl.href = "/";
+    }
+  </script>
+</body>
+</html>

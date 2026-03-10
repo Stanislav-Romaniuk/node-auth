@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create account</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="eyebrow">Registration</div>
+
+    <h1>Create account</h1>
+    <p class="lead">
+      Створіть новий профіль, щоб протестувати реєстрацію користувача
+      та збереження даних у базі.
+    </p>
+
+    <form id="register-form" action="/register" method="POST" novalidate>
+      <div class="field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          placeholder="Наприклад: stanislav"
+          required
+        />
+        <div class="field-hint" id="username-hint"></div>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          type="password"
+          name="password"
+          placeholder="Введіть пароль"
+          required
+        />
+        <div class="field-hint" id="password-hint"></div>
+      </div>
+
+      <button type="submit" id="submit-btn">Створити акаунт</button>
+
+      <div class="form-message error" id="form-message" aria-live="polite"></div>
+    </form>
+
+    <p class="helper">
+      Після реєстрації пароль хешується на сервері та зберігається в базі
+      у захищеному вигляді.
+    </p>
+
+    <div class="meta">
+      <div class="meta-text">
+        Already have an account?
+      </div>
+      <a class="back" href="/login">Go to login →</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("register-form");
+    const formMessage = document.getElementById("form-message");
+    const submitBtn = document.getElementById("submit-btn");
+
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+
+    const usernameHint = document.getElementById("username-hint");
+    const passwordHint = document.getElementById("password-hint");
+
+    function clearErrors() {
+      formMessage.textContent = "";
+      formMessage.classList.remove("show");
+
+      usernameInput.classList.remove("input-error");
+      passwordInput.classList.remove("input-error");
+
+      usernameHint.textContent = "";
+      passwordHint.textContent = "";
+
+      usernameHint.classList.remove("show");
+      passwordHint.classList.remove("show");
+    }
+
+    function showFieldError(field, message) {
+      if (field === "username") {
+        usernameInput.classList.add("input-error");
+        usernameHint.textContent = message;
+        usernameHint.classList.add("show");
+        usernameInput.focus();
+        return;
+      }
+
+      if (field === "password") {
+        passwordInput.classList.add("input-error");
+        passwordHint.textContent = message;
+        passwordHint.classList.add("show");
+        passwordInput.focus();
+        return;
+      }
+
+      formMessage.textContent = message;
+      formMessage.classList.add("show");
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      clearErrors();
+
+      submitBtn.classList.add("loading");
+      submitBtn.textContent = "Creating account...";
+
+      try {
+        const response = await fetch("/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            username: usernameInput.value,
+            password: passwordInput.value
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          showFieldError(data.field, data.message || "Something went wrong.");
+          return;
+        }
+
+        window.location.href = data.redirect;
+      } catch (error) {
+        formMessage.textContent = "Network error. Please try again.";
+        formMessage.classList.add("show");
+      } finally {
+        submitBtn.classList.remove("loading");
+        submitBtn.textContent = "Створити акаунт";
+      }
+    });
+
+    usernameInput.addEventListener("input", clearErrors);
+    passwordInput.addEventListener("input", clearErrors);
+  </script>
+</body>
+</html>
