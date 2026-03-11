@@ -509,3 +509,35 @@ a.back:hover {
     transform: translateY(110vh) rotate(720deg);
   }
 }
+.profile-card{
+  text-align:left;
+}
+
+.profile-header{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.avatar-wrapper{
+  position:relative;
+}
+
+.avatar{
+  width:90px;
+  height:90px;
+  border-radius:50%;
+  object-fit:cover;
+  background:#e5e7eb;
+  border:2px solid rgba(0,0,0,0.1);
+}
+
+#avatar-input{
+  display:none;
+}
+
+#upload-btn{
+  width:100%;
+  margin-bottom:10px;
+}
