@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+    <div class="container profile-card">
+
+        <div class="profile-header">
+
+            <div class="avatar-wrapper">
+                <img id="avatar" class="avatar" src="/default-avatar.png">
+                <input type="file" id="avatar-input" accept="image/*">
+            </div>
+
+            <div class="profile-info">
+                <h1 id="username">User</h1>
+                <p class="profile-subtitle">
+                    Personal profile page
+                </p>
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button id="upload-btn">Upload avatar</button>
+
+            <a class="button-link" href="/">Return home</a>
+
+        </div>
+
+        <div class="meta">
+            <div class="meta-text">
+                Profile data is stored locally in the browser.
+            </div>
+        </div>
+
+    </div>
+
+    <script src="/app.js"></script>
+
+</body>
+
+</html>
