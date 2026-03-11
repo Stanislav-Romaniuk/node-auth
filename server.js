@@ -30,7 +30,7 @@ function missingFields(username, password) {
 }
 
 function makeSuccessUrl(title, text, action, user = "") {
-  let url = `/success.html?title=${encodeURIComponent(title)}&text=${encodeURIComponent(text)}&action=${encodeURIComponent(action)}`;
+  let url = `/profile.html?title=${encodeURIComponent(title)}&text=${encodeURIComponent(text)}&action=${encodeURIComponent(action)}`;
 
   if (user) {
     url += `&user=${encodeURIComponent(user)}`;
@@ -88,7 +88,7 @@ app.post("/register", async (req, res) => {
     }
 
     const existingUser = await pool.query(
-      "SELECT id FROM users WHERE username = $1",
+      "SELECT id FROM USERSTEST WHERE username = $1",
       [cleanUsername]
     );
 
@@ -103,7 +103,7 @@ app.post("/register", async (req, res) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     await pool.query(
-      "INSERT INTO users (username, password_hash) VALUES ($1, $2)",
+      "INSERT INTO USERSTEST (username, password_hash) VALUES ($1, $2)",
       [cleanUsername, passwordHash]
     );
 
@@ -144,7 +144,7 @@ app.post("/login", async (req, res) => {
     const cleanUsername = username.trim();
 
     const result = await pool.query(
-      "SELECT * FROM users WHERE username = $1",
+      "SELECT * FROM USERSTEST WHERE username = $1",
       [cleanUsername]
     );
 
@@ -199,7 +199,5 @@ async function start() {
     console.log(`Server running at http://localhost:${port}`);
   });
 }
-
-
 
 start();
